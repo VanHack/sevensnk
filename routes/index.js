@@ -12,7 +12,8 @@ router.get('/', function(req, res, next) {
     if(result && result.total > 0) {
         res.send({
             explanation : "The items have the following struct: rIcJ|rIcJ, where rI is the row number, cJ is the column number, and" +
-            " pipe is to split the rows/columns.\n I'm showing only the first item, but you can see all items in this URL path: /all",
+            " | is to split the cells.\n We are showing only the first item, but you can see all items in this URL path: /all" +
+            " (NOTE: Get all items may take a long time because of the payload)",
             total: result.total,
             pair : result.items[0]
         });
