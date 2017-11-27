@@ -8,6 +8,9 @@ var snakesSumKey = {};
 var stopExecution = false;
 var itemsDifferents = {};
 var defaultCSV = "";
+// if True, print the result cells in sequence to make a snake; if False, print the result cells sorted by row and col.
+// if True: It makes the performance worst.
+var isShowInSequenceCells = true;
 fs.readFile('resources/7snake.csv', 'utf8', function (err,data) {
     if (err) {
         return console.log(err);
@@ -82,7 +85,7 @@ function checkEqualsSum(snake){
                     {
                         "sum" : snake["sum"],
                         "item1" : item,
-                        "item2" : snake["name"]
+                        "item2" : isShowInSequenceCells ? snake["sequence"] : snake["name"]
                     }
                 )
                 /*itemsDifferents[snake["sum"]] = {
@@ -101,6 +104,7 @@ function checkEqualsSum(snake){
 function addItemToGlobalSnake(snake){
     let sortedName = snake["items"].sort((a, b)=>{return a > b}).join("|");
     snakes.set(sortedName, snake);
+    snake["sequence"] = snake["name"];
     snake["name"] = sortedName;
     if(!snakesSumKey[snake["sum"]]) snakesSumKey[snake["sum"]] = [];
 
@@ -108,7 +112,7 @@ function addItemToGlobalSnake(snake){
         if(checkEqualsSum(snake)){
             stopExecution = true;
         }
-        snakesSumKey[snake["sum"]].push(sortedName);
+        snakesSumKey[snake["sum"]].push(isShowInSequenceCells ? snake["sequence"] : sortedName);
     }
 }
 
