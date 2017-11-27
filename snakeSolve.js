@@ -9,7 +9,7 @@ var stopExecution = false;
 var itemsDifferents = {};
 var defaultCSV = "";
 // if True, print the result cells in sequence to make a snake; if False, print the result cells sorted by row and col.
-// if True: It makes the performance worst.
+// if True: It makes the performance worst and can duplicate pairs, using the same cell group, but in different order/sequence.
 var isShowInSequenceCells = true;
 fs.readFile('resources/7snake.csv', 'utf8', function (err,data) {
     if (err) {
